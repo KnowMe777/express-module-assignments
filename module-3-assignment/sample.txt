@@ -1,0 +1,233 @@
+Express Practice API Documentation
+
+Base URL
+
+```
+http://localhost:3000
+```
+
+---
+
+# 1. Inspect Request
+
+### GET /inspect
+
+Returns information about the incoming HTTP request.
+
+This route is useful for debugging and understanding what data the server receives from the client.
+
+### Endpoint
+
+```
+GET /inspect
+```
+
+### Response Example
+
+```json
+{
+  "method": "GET",
+  "url": "/inspect",
+  "headers": { ... },
+  "IPAddress": "::1",
+  "timeStamp": "Thu Mar 12 2026 12:30:10 GMT+0500"
+}
+```
+
+### Fields Returned
+
+| Field     | Description                         |
+| --------- | ----------------------------------- |
+| method    | HTTP method used in the request     |
+| url       | Requested URL path                  |
+| headers   | All request headers                 |
+| IPAddress | Client IP address                   |
+| timeStamp | Time when the request was processed |
+
+---
+
+# 2. Echo Request Body
+
+### POST /echo
+
+Returns the same data that the client sends in the request body.
+
+This route is commonly used for testing JSON requests.
+
+### Endpoint
+
+```
+POST /echo
+```
+
+### Request Body Example
+
+```json
+{
+  "message": "hello"
+}
+```
+
+### Response Example
+
+```json
+{
+  "message": "success",
+  "data": {
+    "message": "hello"
+  }
+}
+```
+
+### Error Response
+
+If the body is empty:
+
+```json
+{
+  "message": "Request body is empty"
+}
+```
+
+Status Code: **400**
+
+---
+
+# 3. Get User by ID
+
+### GET /users/:id
+
+Returns a sample user object if the provided ID is valid.
+
+### Endpoint
+
+```
+GET /users/:id
+```
+
+### Path Parameter
+
+| Parameter | Description |
+| --------- | ----------- |
+| id        | User ID     |
+
+### Validation Rules
+
+* `id` must be a **number**
+* `id` must be **less than or equal to 100**
+
+### Valid Request Example
+
+```
+GET /users/25
+```
+
+### Successful Response
+
+```json
+{
+  "name": "John",
+  "age": 25
+}
+```
+
+### Error: Invalid ID
+
+If ID is not a number:
+
+```json
+{
+  "message": "id must be number"
+}
+```
+
+Status Code: **400**
+
+### Error: ID too large
+
+If ID is greater than 100:
+
+```json
+{
+  "message": "id should be less than or equal to 100"
+}
+```
+
+Status Code: **404**
+
+---
+
+# 4. Redirect Request
+
+### GET /redirect-me
+
+Redirects the client to the `/inspect` endpoint.
+
+### Endpoint
+
+```
+GET /redirect-me
+```
+
+### Behavior
+
+The server responds with a **301 redirect** to:
+
+```
+/inspect
+```
+
+This means the browser will automatically request:
+
+```
+GET /inspect
+```
+
+---
+
+# 5. Download Sample File
+
+### GET /download-sample
+
+This route will allow users to download a sample file from the server.
+
+### Endpoint
+
+```
+GET /download-sample
+```
+
+### Expected Behavior
+
+When implemented, this route will trigger a **file download** in the browser.
+
+Typical Express implementation:
+
+```javascript
+res.download("path/to/sample-file.txt");
+```
+
+---
+
+# Summary of Routes
+
+| Method | Route            | Description                 |
+| ------ | ---------------- | --------------------------- |
+| GET    | /inspect         | Inspect request information |
+| POST   | /echo            | Return request body         |
+| GET    | /users/:id       | Get user with ID validation |
+| GET    | /redirect-me     | Redirect to /inspect        |
+| GET    | /download-sample | Download sample file        |
+
+---
+
+# Notes
+
+* The server listens on **port 3000**
+* JSON parsing is enabled using:
+
+```javascript
+app.use(express.json());
+```
+
+* All responses are returned in **JSON format** except redirects and file downloads.
