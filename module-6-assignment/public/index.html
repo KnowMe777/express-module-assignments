@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Books API</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <h1>Books API</h1>
+
+    <section>
+      <h2>Add a New Book</h2>
+      <form id="book-form">
+        <input type="text" name="title" placeholder="Title" required />
+        <input type="text" name="author" placeholder="Author" required />
+        <input type="number" name="year" placeholder="Year" required />
+        <input type="text" name="genre" placeholder="Genre" required />
+        <input type="number" name="pages" placeholder="Pages" required />
+        <button type="submit">Add Book</button>
+      </form>
+    </section>
+
+    <section>
+      <h2>Books List</h2>
+      <table id="books-table">
+        <thead>
+          <tr>
+            <th>Title</th>
+            <th>Author</th>
+            <th>Year</th>
+            <th>Genre</th>
+            <th>Pages</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </section>
+
+    <script src="index.js"></script>
+  </body>
+</html>
