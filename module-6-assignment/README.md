@@ -6,7 +6,7 @@
 
 ## Added a new Book
 
-![new book](screenshots/new.png)
+![new book](screenshots/add.png)
 
 ## Deleted the book recently added
 
